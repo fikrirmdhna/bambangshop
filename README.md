@@ -48,15 +48,15 @@ You can install Postman via this website: https://www.postman.com/downloads/
     (You might want to use `cargo check` if you only need to verify your work without running the app.)
 
 ## Mandatory Checklists (Publisher)
--   [ ] Clone https://gitlab.com/ichlaffterlalu/bambangshop to a new repository.
+-   [x] Clone https://gitlab.com/ichlaffterlalu/bambangshop to a new repository.
 -   **STAGE 1: Implement models and repositories**
-    -   [ ] Commit: `Create Subscriber model struct.`
-    -   [ ] Commit: `Create Notification model struct.`
-    -   [ ] Commit: `Create Subscriber database and Subscriber repository struct skeleton.`
-    -   [ ] Commit: `Implement add function in Subscriber repository.`
-    -   [ ] Commit: `Implement list_all function in Subscriber repository.`
-    -   [ ] Commit: `Implement delete function in Subscriber repository.`
-    -   [ ] Write answers of your learning module's "Reflection Publisher-1" questions in this README.
+    -   [x] Commit: `Create Subscriber model struct.`
+    -   [x] Commit: `Create Notification model struct.`
+    -   [x] Commit: `Create Subscriber database and Subscriber repository struct skeleton.`
+    -   [x] Commit: `Implement add function in Subscriber repository.`
+    -   [x] Commit: `Implement list_all function in Subscriber repository.`
+    -   [x] Commit: `Implement delete function in Subscriber repository.`
+    -   [x] Write answers of your learning module's "Reflection Publisher-1" questions in this README.
 -   **STAGE 2: Implement services and controllers**
     -   [ ] Commit: `Create Notification service struct skeleton.`
     -   [ ] Commit: `Implement subscribe function in Notification service.`
@@ -77,6 +77,11 @@ This is the place for you to write reflections:
 ### Mandatory (Publisher) Reflections
 
 #### Reflection Publisher-1
+1. Dalam pola Observer, Subscriber mewakili entitas yang mengamati atau mendengarkan perubahan pada subjek yang diminatinya. Secara tradisional, sebuah antarmuka atau trait digunakan untuk mendefinisikan kontrak yang harus dipatuhi oleh subscriber konkret. Namun, dalam Rust, trait biasanya digunakan untuk mendefinisikan perilaku daripada hanya struktur data. Dalam kasus BambangShop, karena tidak ada perilaku yang terkait dengan subscriber selain operasi dasar CRUD, sebuah struct tunggal cukup. Struct Subscriber menyimpan data yang diperlukan (url dan nama) untuk seorang subscriber, dan digunakan dalam repository untuk mengelola subscriber.
+
+2. Apakah akan menggunakan Vec atau DashMap tergantung pada kebutuhan spesifik dari aplikasi tersebut. Jika keunikan ID atau URL penting dan pencarian yang efisien diperlukan, maka DashMap (atau jenis peta/dictionary lainnya) adalah pilihan yang lebih baik karena memberikan kompleksitas waktu pencarian O(1). Menggunakan Vec akan memerlukan iterasi melalui daftar untuk menemukan item, yang menghasilkan kompleksitas O(n) untuk operasi pencarian, yang mungkin tidak efisien untuk kumpulan data besar atau pencarian yang sering.
+
+3. Mengenai keamanan thread, kompiler Rust memastikan keamanan memori dan konkurensi tanpa adanya data race melalui sistem ownership dan borrowing. Namun, untuk akses bersama ke data bersama seperti peta SUBSCRIBERS, mekanisme sinkronisasi tambahan diperlukan. DashMap dipilih di sini karena menyediakan mutabilitas interior dengan keamanan thread, memungkinkan beberapa utas untuk mengakses dan memodifikasi peta secara bersamaan. Meskipun mengimplementasikan pola Singleton bisa memastikan bahwa hanya satu instans dari peta yang ada, itu tidak secara inheren menyediakan keamanan thread. Jadi, bahkan dengan pola Singleton, Anda masih memerlukan mekanisme sinkronisasi seperti mutex atau kunci untuk memastikan keamanan thread, yang telah disediakan oleh DashMap secara langsung. Oleh karena itu, menggunakan DashMap dalam konteks ini tampaknya sesuai untuk memastikan keamanan thread dan akses bersama yang efisien ke data subscriber.
 
 #### Reflection Publisher-2
 
