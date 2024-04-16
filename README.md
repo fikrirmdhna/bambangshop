@@ -69,7 +69,7 @@ You can install Postman via this website: https://www.postman.com/downloads/
     -   [x] Commit: `Implement notify function in Notification service to notify each Subscriber.`
     -   [x] Commit: `Implement publish function in Program service and Program controller.`
     -   [x] Commit: `Edit Product service methods to call notify after create/delete.`
-    -   [ ] Write answers of your learning module's "Reflection Publisher-3" questions in this README.
+    -   [x] Write answers of your learning module's "Reflection Publisher-3" questions in this README.
 
 ## Your Reflections
 This is the place for you to write reflections:
@@ -91,3 +91,8 @@ This is the place for you to write reflections:
 3. Postman merupakan tools yang dapat mengirimkan pengiriman API dan memeriksanya apakah fungsi yang dibuat itu sudah sesuai dengan harapan kita atau belum. Pada tutorial ini, kita mencoba beberapa API request seperti GET, POST, dan DELETE untuk melakukan pengecekan apakah fungsi yang dibuat dalam bambangshop ini berjalan dengan baik atau tidak. Tentunya hal ini akan memudahkan kita untuk melakukan pengecekan terhadap pengerjaan tugas kelompok karena kita dapat melakukan pengetesan fungsi secara akurat tanpa memikirkan frontendnya terlebih dahulu. 
 
 #### Reflection Publisher-3
+1. Dalam kasus tutorial ini, kita menggunakan variasi pertama, yaitu Push Model yang dimana publisher mendorong data ke subscribers.
+
+2. Keuntungan dari menggunakan variasi model Pull dalam kasus tutorial ini adalah bahwa subscriber memiliki kontrol lebih besar atas kapan mereka menerima pembaruan, karena mereka secara aktif menarik data dari publisher. Ini dapat mengurangi beban pada publisher karena tidak perlu secara proaktif mengirimkan pembaruan kepada semua subscriber. Namun, kerugiannya adalah subscriber perlu secara teratur memeriksa publisher untuk memperbarui data, yang dapat menghasilkan kinerja yang buruk jika ada banyak subscriber yang harus diperbarui secara serentak.
+
+3. Jika kita memutuskan untuk tidak menggunakan multi-threading dalam proses notifikasi, program akan mengalami penundaan yang signifikan ketika melakukan operasi notifikasi, terutama jika ada banyak pelanggan yang harus diberitahu. Tanpa multi-threading, proses notifikasi akan dieksekusi secara berurutan dalam satu thread, yang dapat mengakibatkan waktu respon yang lambat dan memblokir eksekusi tugas lain dalam aplikasi, seperti operasi HTTP. Ini dapat mengurangi responsifitas dan kinerja keseluruhan aplikasi, terutama dalam skenario beban tinggi di mana banyak notifikasi harus dikirim secara bersamaan. Dengan multi-threading, proses notifikasi dapat dieksekusi secara paralel dalam thread-thread terpisah, meningkatkan kinerja dan memungkinkan aplikasi untuk tetap responsif terhadap permintaan lain.
